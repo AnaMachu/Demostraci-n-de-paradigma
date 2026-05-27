@@ -36,10 +36,43 @@ El paradigma funcional influyó en lenguajes como Lisp, Haskell y Scheme, caract
 
 
 ## Paradigma Lógico 
+El paradigma lógico es un modelo de programación basado en la lógica matemática y en la deducción automática de resultados. A diferencia de los paradigmas imperativos, donde el programador especifica paso a paso cómo resolver un problema, en el paradigma lógico se describen hechos y reglas, dejando que el sistema determine las soluciones mediante procesos de inferencia.
 
+La base teórica de este paradigma es la lógica de predicados de primer orden, utilizada para representar relaciones y conocimiento de manera formal. Según el manual del Tecnológico Nacional de México, la programación lógica permite modelar problemas mediante relaciones lógicas y consultas, enfocándose más en la descripción del problema que en el algoritmo de solución.
+
+John Lloyd, en *Foundations of Logic Programming*, explica que la programación lógica interpreta la computación como un proceso de demostración matemática. Esto significa que ejecutar un programa equivale a probar si una conclusión puede derivarse de un conjunto de reglas y hechos previamente definidos.
+
+Un programa lógico se compone principalmente de:
+
+* Hechos:afirmaciones verdaderas dentro del sistema.
+* Reglas: relaciones lógicas que permiten derivar nueva información.
+* Consultas:preguntas realizadas para obtener respuestas del sistema.
+
+Por ejemplo, un hecho puede representarse así:
+
+```prolog id="h7m4zs"
+padre(juan, maria).
+```
+
+y una regla lógica como:
+
+```prolog id="x2n8qd"
+abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+```
+
+Esta regla expresa que “X es abuelo de Y si X es padre de Z y Z es padre de Y”.
+
+Uno de los mecanismos fundamentales del paradigma lógico es la **unificación**, proceso mediante el cual el sistema busca hacer coincidir expresiones lógicas para encontrar valores válidos. Otro mecanismo importante es el **backtracking**, técnica que permite retroceder y probar diferentes alternativas hasta hallar una solución correcta.
+
+De acuerdo con Uwe Schöning, la lógica proporciona herramientas formales para representar conocimiento y realizar razonamientos precisos. Gracias a ello, la programación lógica es especialmente útil en áreas como inteligencia artificial, sistemas expertos, procesamiento de lenguaje natural y bases de conocimiento.
+
+El lenguaje más representativo de este paradigma es Prolog, cuyo nombre proviene de *Programming in Logic*. En este lenguaje, los programas se construyen declarando relaciones lógicas, mientras que el motor de inferencia se encarga de resolver consultas automáticamente.
+
+En conclusión, el paradigma lógico propone una forma declarativa de programación basada en hechos, reglas y deducción matemática. Su fundamento en la lógica formal permite desarrollar sistemas capaces de representar conocimiento y razonar automáticamente para resolver problemas complejos.
 
 ## Explicación del problema 
-https://codeforces.com/problemset/problem/4/C
+https://codeforces.com/problemset/problem/4/C <br>
+
 A new e-mail service "Berlandesk" is going to be opened in Berland in the near future. The site administration wants to launch their project as soon as possible, that's why they ask you to help. You're suggested to implement the prototype of site registration system. The system should work on the following principle.
 
 Each time a new user wants to register, he sends to the system a request with his name. If such a name does not exist in the system database, it is inserted into the database, and the user gets the response OK, confirming the successful registration. If the name already exists in the system database, the system makes up a new user name, sends it to the user as a prompt and also inserts the prompt into the database. The new name is formed by the following rule. Numbers, starting with 1, are appended one after another to name (name1, name2, ...), among these numbers the least i is found so that namei does not yet exist in the database.
@@ -50,11 +83,25 @@ The first line contains number n (1 ≤ n ≤ 105). The following n line
 Output
 Print n lines, which are system responses to the requests: OK in case of successful registration, or a prompt with a new name, if the requested name is already taken.
 
+Example Input
+6
+first
+first
+second
+second
+third
+third
 
+Example Output
+OK
+OK
+abacaba1
+OK
 
 ## Implementaciones 
-La implementación en el paradigma lógico se encuentra en el archivo
-y en funcional en el archivo
+La implementación en el paradigma lógico se encuentra en el archivo [LogicoRS.pl](LogicoRS.pl)
+y en funcional en el archivo [FuncionalRS.rkt](FuncionalRS.rkt)
+
 
 ## Arquitectura de solución (Diagramas)
    ### Funcional
@@ -68,9 +115,23 @@ De acuerdo con Robert W. Sebesta en Concepts of Programming Languages, una de la
 
 Sin embargo, Sebesta también menciona algunas desventajas. Entre ellas se encuentra que la programación funcional puede resultar menos eficiente en ciertos casos debido al uso intensivo de recursividad y creación constante de nuevas estructuras de datos. Además, para programadores acostumbrados al paradigma imperativo, la sintaxis y la forma de pensar funcional pueden ser más difíciles de aprender inicialmente.
 
+Entre las ventajas del paradigma lógico destacan:
 
+Programas más declarativos y compactos.
+Facilidad para representar conocimiento.
+Capacidad de razonamiento automático.
+
+Sin embargo, también presenta desventajas:
+
+Menor eficiencia en algunos problemas complejos.
+Alto consumo de recursos por el proceso de inferencia.
+Mayor dificultad de aprendizaje para programadores acostumbrados a paradigmas imperativos.
 
 ## Pruebas
+Las pruebas automatizadas se pueden encontrar en [registration_tests.pl](registration_tests.pl) y [registration_tests.rkt](registration_tests.rkt)
+
+
+
 
 ## Bibliografía
 Bird, R., & Wadler, P. Introduction to Functional Programming.
@@ -81,3 +142,9 @@ https://www.ime.usp.br/~alvaroma/ucsp/proglang/book.pdf
 
 F. Estrepo. Paradigmas de Programación Funcional.
 https://ferestrepoca.github.io/paradigmas-de-programacion/progfun/funcional_teoria/index.html
+
+Lloyd, J. W. (1987). Foundations of Logic Programming (2nd ed.). Springer-Verlag. Foundations of Logic Programming PDF
+
+Schöning, U. (2008). Logic for Computer Scientists. Birkhäuser Boston. Logic for Computer Scientists PDF
+
+Tecnológico Nacional de México. (s.f.). Manual de prácticas de programación funcional y lógica. Manual de Prácticas de Programación Funcional y Lógica – TecNM
