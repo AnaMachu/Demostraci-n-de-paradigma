@@ -31,9 +31,6 @@ puede escribirse en cálculo lambda como:
 \lambda x.\lambda y.(x+y)
 
 Estas ideas dieron origen a conceptos como funciones de orden superior, currificación e inmutabilidad.
-
-De acuerdo con Robert W. Sebesta en Concepts of Programming Languages, una de las principales ventajas del paradigma funcional es que facilita la creación de programas más confiables debido a la ausencia de efectos secundarios y al uso de datos inmutables. También destaca que este paradigma simplifica las pruebas y el mantenimiento del software, ya que las funciones tienen comportamientos predecibles.
-
 El paradigma funcional influyó en lenguajes como Lisp, Haskell y Scheme, caracterizados por el uso de funciones puras, recursividad y ausencia de efectos secundarios.
 
 
@@ -52,6 +49,12 @@ El paradigma funcional influyó en lenguajes como Lisp, Haskell y Scheme, caract
    #### Análisis de complejidad
 
 ## Comparación entre paradigmas
+
+De acuerdo con Robert W. Sebesta en Concepts of Programming Languages, una de las principales ventajas del paradigma funcional es que facilita la creación de programas más confiables debido a la ausencia de efectos secundarios y al uso de datos inmutables. También destaca que este paradigma simplifica las pruebas y el mantenimiento del software, ya que las funciones tienen comportamientos predecibles.
+
+Sin embargo, Sebesta también menciona algunas desventajas. Entre ellas se encuentra que la programación funcional puede resultar menos eficiente en ciertos casos debido al uso intensivo de recursividad y creación constante de nuevas estructuras de datos. Además, para programadores acostumbrados al paradigma imperativo, la sintaxis y la forma de pensar funcional pueden ser más difíciles de aprender inicialmente.
+
+
 
 ## Pruebas
 
