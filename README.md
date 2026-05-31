@@ -70,45 +70,6 @@ El lenguaje más representativo de este paradigma es Prolog, cuyo nombre provien
 
 En conclusión, el paradigma lógico propone una forma declarativa de programación basada en hechos, reglas y deducción matemática. Su fundamento en la lógica formal permite desarrollar sistemas capaces de representar conocimiento y razonar automáticamente para resolver problemas complejos.
 
-## Explicación del problema 
-https://codeforces.com/problemset/problem/4/C <br>
-
-A new e-mail service "Berlandesk" is going to be opened in Berland in the near future. The site administration wants to launch their project as soon as possible, that's why they ask you to help. You're suggested to implement the prototype of site registration system. The system should work on the following principle.
-
-Each time a new user wants to register, he sends to the system a request with his name. If such a name does not exist in the system database, it is inserted into the database, and the user gets the response OK, confirming the successful registration. If the name already exists in the system database, the system makes up a new user name, sends it to the user as a prompt and also inserts the prompt into the database. The new name is formed by the following rule. Numbers, starting with 1, are appended one after another to name (name1, name2, ...), among these numbers the least i is found so that namei does not yet exist in the database.
-
-Input
-The first line contains number n (1 ≤ n ≤ 105). The following n lines contain the requests to the system. Each request is a non-empty line, and consists of not more than 32 characters, which are all lowercase Latin letters.
-
-Output
-Print n lines, which are system responses to the requests: OK in case of successful registration, or a prompt with a new name, if the requested name is already taken.
-
-Example Input
-6
-first
-first
-second
-second
-third
-third
-
-Example Output
-OK
-OK
-abacaba1
-OK
-
-## Implementaciones 
-La implementación en el paradigma lógico se encuentra en el archivo [LogicoRS.pl](LogicoRS.pl)
-y en funcional en el archivo [FuncionalRS.rkt](FuncionalRS.rkt)
-
-
-## Arquitectura de solución (Diagramas)
-   ### Funcional
-   #### Análisis de complejidad
-   ### Lógico 
-   #### Análisis de complejidad
-
 ## Comparación entre paradigmas
 
 De acuerdo con Robert W. Sebesta en Concepts of Programming Languages, una de las principales ventajas del paradigma funcional es que facilita la creación de programas más confiables debido a la ausencia de efectos secundarios y al uso de datos inmutables. También destaca que este paradigma simplifica las pruebas y el mantenimiento del software, ya que las funciones tienen comportamientos predecibles.
@@ -127,10 +88,45 @@ Menor eficiencia en algunos problemas complejos.
 Alto consumo de recursos por el proceso de inferencia.
 Mayor dificultad de aprendizaje para programadores acostumbrados a paradigmas imperativos.
 
+
+## Explicación del problema 
+### N QUEENS
+El problema de N-Queens consiste en regresar todos los arreglos válidos en los que N reinas se puedan colocar en un tablero N x N sin que ninguna ataque a otra (GeekforGeeks, 2025). Esto es con respecto a las reglas de ajedrez, donde esta pieza puede moverse a cualquier posición vertical, horizontal y diagonal, por lo que no pueden haber reinas compartiendo filas. Un ejemplo de este problema:
+<img width="618" height="474" alt="NQUEENS" src="https://github.com/user-attachments/assets/ea35c281-329c-40f3-8b0c-b13fef9d09e6" />
+
+Este problema es un claro ejemplo para backtracking, un algoritmo usado para buscar todas las posibles combinaciones mediante una búsqueda en profundidad y retroceder (“backtrack”) cuando se determina que una camino no llegará a una solución completa y válida. Este algoritmo es utilizado en áreas como inteligencia artificial, problemas de satisfacción de restricciones y optimización combinatoria (Harper, E. 2025). Estas aplicaciones muestran la importancia de este algoritmo para resolver problemas complejos en muchas áreas, siendo utilizado para medir y comparar el desempeño de lenguajes lógicos, funcionales e imperativos. 
+
+En contraste, se comparará con el paradigma funcional, el cuál se basa en transformar datos mediante funciones puras, sin estado mutable ni efectos secundarios. Para N-Queens, se construirá  la solución como una cadena de transformaciones, generando posiciones candidatas, filtrando las que violan restricciones, y acumulando las válidas. El principal fuerte de este paradigma es que la estructura del problema es recursiva, pudiéndose expresar de forma directa, donde la recursión es el mecanismo principal de control.
+
+Ambos paradigmas son declarativos, pero de formas distintas: el lógico declara relaciones, el funcional declara transformaciones. Sobre el mismo problema, podemos ver y evaluar esta diferencia, utilizando como lenguajes de programación Haskell para el funcional y Prolog para el lógico (Gómez, L.).
+
+## Implementaciones 
+Para la implementación de los códigos hay que partir de 3 principios básicos:
+Si reina 1 y 2 están en la fila r, es inválido.
+Si reina 1 y 2 están en la columna c, es inválido.
+Si reina 1 está en r1  y c1, reina 2 está en r2  y c2 y -> abs(r2  - r1) = abs(c2  - c1), es inválido.
+
+La implementación en el paradigma lógico se encuentra en el archivo [NqueensLogic.pl](NqueensLogic.pl)
+y en funcional en el archivo [NqueensFunctional.rkt](NqueensFunctional.rkt)
+
+## Arquitectura de solución (Diagramas)
+
+   ### Funcional
+   <img width="440" height="759" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" />
+   <img width="224" height="443" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" />
+<img width="585" height="504" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" />
+<img width="212" height="443" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" />
+   #### Análisis de complejidad
+   
+  
+   
+   ### Lógico 
+   #### Análisis de complejidad
+   Complejidad espacial O(n)
+
+
 ## Pruebas
 Las pruebas automatizadas se pueden encontrar en [registration_tests.pl](registration_tests.pl) y [registration_tests.rkt](registration_tests.rkt)
-
-
 
 
 ## Bibliografía
@@ -148,3 +144,7 @@ Lloyd, J. W. (1987). Foundations of Logic Programming (2nd ed.). Springer-Verlag
 Schöning, U. (2008). Logic for Computer Scientists. Birkhäuser Boston. Logic for Computer Scientists PDF
 
 Tecnológico Nacional de México. (s.f.). Manual de prácticas de programación funcional y lógica. Manual de Prácticas de Programación Funcional y Lógica – TecNM
+
+Harper, E. (2025). Analyzing the importance of backtracking in logic programming. logic-programming.org. https://logic-programming.org/analyzing-the-importance-of-backtracking-in-logic-programming/
+
+Gómez, L. (s.f.). Paradigmas de programación. KeepCoding Tech School. https://keepcoding.io/blog/paradigmas-de-programacion/
