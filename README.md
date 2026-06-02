@@ -115,8 +115,8 @@ y en funcional en el archivo [NqueensFunctional.rkt](NqueensFunctional.rkt)
    <p>
    <img width="200" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> <br>
    <img width="224" height="443" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" /> <br>
-   <img width="585" height="504" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> <br>
-   <img width="212" height="443" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
+   <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> <br>
+   <img width="212" height="400" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
   </p>
    #### Análisis de complejidad
    
