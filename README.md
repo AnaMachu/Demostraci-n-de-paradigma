@@ -121,14 +121,14 @@ y en funcional en el archivo [NqueensFunctional.rkt](NqueensFunctional.rkt)
   </p>
    
    #### Análisis de complejidad
-   Complejidad temporal
-   Complejidad espacial O(n)
+   * Complejidad temporal
+   * Complejidad espacial O(n)
   
    
    ### Lógico 
    #### Análisis de complejidad
-   Complejidad temporal 
-   Complejidad espacial O(n)
+   * Complejidad temporal 
+   * Complejidad espacial O(n)
 
 
 ## Pruebas
