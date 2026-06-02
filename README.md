@@ -91,6 +91,7 @@ Mayor dificultad de aprendizaje para programadores acostumbrados a paradigmas im
 
 ## Explicación del problema 
 ### N QUEENS
+https://codeforces.com/gym/102697/problem/107 
 El problema de N-Queens consiste en regresar todos los arreglos válidos en los que N reinas se puedan colocar en un tablero N x N sin que ninguna ataque a otra (GeekforGeeks, 2025). Esto es con respecto a las reglas de ajedrez, donde esta pieza puede moverse a cualquier posición vertical, horizontal y diagonal, por lo que no pueden haber reinas compartiendo filas. Un ejemplo de este problema:
 <img width="618" height="474" alt="NQUEENS" src="https://github.com/user-attachments/assets/ea35c281-329c-40f3-8b0c-b13fef9d09e6" />
 
