@@ -91,7 +91,6 @@ Mayor dificultad de aprendizaje para programadores acostumbrados a paradigmas im
 
 ## Explicación del problema 
 ### N QUEENS
-https://codeforces.com/gym/102697/problem/107 
 El problema de N-Queens consiste en regresar todos los arreglos válidos en los que N reinas se puedan colocar en un tablero N x N sin que ninguna ataque a otra (GeekforGeeks, 2025). Esto es con respecto a las reglas de ajedrez, donde esta pieza puede moverse a cualquier posición vertical, horizontal y diagonal, por lo que no pueden haber reinas compartiendo filas. Un ejemplo de este problema:
 <img width="618" height="474" alt="NQUEENS" src="https://github.com/user-attachments/assets/ea35c281-329c-40f3-8b0c-b13fef9d09e6" />
 
@@ -101,23 +100,108 @@ En contraste, se comparará con el paradigma funcional, el cuál se basa en tran
 
 Ambos paradigmas son declarativos, pero de formas distintas: el lógico declara relaciones, el funcional declara transformaciones. Sobre el mismo problema, podemos ver y evaluar esta diferencia, utilizando como lenguajes de programación Haskell para el funcional y Prolog para el lógico (Gómez, L.).
 
-## Implementaciones 
-Para la implementación de los códigos hay que partir de 3 principios básicos:
-Si reina 1 y 2 están en la fila r, es inválido.
-Si reina 1 y 2 están en la columna c, es inválido.
-Si reina 1 está en r1  y c1, reina 2 está en r2  y c2 y -> abs(r2  - r1) = abs(c2  - c1), es inválido.
+### The Man Machine 
+ El problema de N Queens se puede encontrar en codeforces bajo el título de The Man Machine y es el siguiente link https://codeforces.com/gym/102697/problem/107 
+ donde no se pide de output un arreglo, más bien solo la cuenta total de soluciones.
 
-La implementación en el paradigma lógico se encuentra en el archivo [NqueensLogic.pl](NqueensLogic.pl)
-y en funcional en el archivo [NqueensFunctional.rkt](NqueensFunctional.rkt)
+You played against a Man Machine in chess, and because it is a superhuman being, you lost every game. Now, you're trying to practice chess so that you can beat the Man Machine.
+
+To practice, you want to figure out how many different ways there are to place N
+ queens on an N
+ by N
+ chessboard, such that no two queens attack each other (queens can attack any number of spaces directly diagonal, left, right, up, or down). This is called the N
+-queens problem, and is a standard computer science problem involving recursion and backtracking. Your task is to implement this solution on chessboards where N
+ can be up to 9.
+
+Input
+The only line of input contains a single positive integer N
+: the size of the chessboard.
+
+Output
+Output a single positive integer c
+: the number of ways to place N
+ queens on the chessboard, such that no two queens attack each other.
+
+Examples
+InputCopy
+8
+OutputCopy
+92
+
 
 ## Arquitectura de solución (Diagramas)
+Se deben encontrar todas las posibles soluciones para las reinas, por lo que se hacden evaluaciones de factibilidad en cada fila de cada columna de todo el tablero basados en estos 3 criterios 
 
-   ### Funcional
+* Si reina 1 y 2 están en la fila r, es inválido.
+* Si reina 1 y 2 están en la columna c, es inválido.
+* Si reina 1 está en r1  y c1, reina 2 está en r2  y c2, es inválido.
+
+Algunas reinas en ciertas filas y columnas puede que no produzcan soluciones válidas.
+<img width="951" height="363" alt="image" src="https://github.com/user-attachments/assets/6a245f9e-855a-40aa-ae62-00131f17eba2" />
+<img width="638" height="328" alt="image" src="https://github.com/user-attachments/assets/d3cb0784-69bf-43d7-9328-54d74e006ca0" />
+<img width="550" height="313" alt="image" src="https://github.com/user-attachments/assets/dba2db61-c365-439d-8fc8-0396b79b1ba3" />
+Ahora en la columna 2<br>
+Y también puede que haya más de una solución válida por iteración.
+<img width="591" height="591" alt="image" src="https://github.com/user-attachments/assets/8a414a15-17c3-4436-80d0-695a3f4f2ac0" />
+
+   ### Implementación en Funcional
+   
+   La implementación en el paradigma funcional se encuentra en el archivo [NqueensFunctional.rkt](NqueensFunctional.rkt)
+
+   La función principal `place-queens( n  k )`
+
+   Donde n=tamaño del tablero y k = reinas por colocar. Primero va al caso base de su recusión el cual es que ya no queden reinas por colocar y devuelve una lista vacía.
+   Como k para la explicación inicia en 4 y no en cero, se va al caso recursivo donde se manda a llamar a sí misma con una k menos ya que ocupa tener una lista sobre la cual iterar así que queda pausado llamandose hasta que k=0 y se devuelva una lista con un alista vacía dentro para ya ejecutar sobre esa.
+
+   `(place-queens n (- k 1)`
+
+Entonces luce así :
+   
+   place-queens 4 4  ← esperando <br>
+   place-queens 4 3  ← esperando <br>
+   place-queens 4 2  ← esperando <br>
+   place-queens 4 1  ← esperando <br>
+   place-queens 4 0  ← EJECUTA <br>
+Una vez que hay una lista con una lista vacía dentro, esta se pasa a la ultima llamada pendiente y se empieza a ejecutar el código de 
+
+```racket
+(flatmap (lambda (qs)
+           (map (lambda (q) (cons q qs))
+                (range 1 (+ 1 n)))
+         '(()))
+````
+Donde qs es la lista vacía y procede a hacer cons (agregar al inicio de la lista) los elementos q.
+Flatmap lo que hace es que aplana la lista para que no sea anidada usando aplly y append (
+```racket
+(define (flatmap f lst) 
+  (apply append (map f lst)))
+```
+Para después hacer un filtro de lo que es seguro con:
+```racket
+filter safe?
+
+(define (safe? qs)
+  (check (car qs) (cdr qs) 1))
+
+(define (check q rest d)
+  (or (null? rest)
+      (and (not (= q (car rest)))
+           (not (= (abs (- q (car rest))) d));
+           (check q (cdr rest) (+ d 1)))));
+```
+Donde en `check( q rest d)` se verfica que cumpla con los 3 criterios de no atacar
+
+Una vez filtrado se llegan a las soluciones y con 
+```racket
+(define (count-solutions n)
+  (length (queens n)))
+```
+solo se cuentan.
+   ####Diagramas lógicos del código por función
    <p>
-      
-   <img width="200" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> <br>
+   <img width="200" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> 
    <img width="224" height="400" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" /> <br>
-   <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> <br>
+   <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> 
    <img width="212" height="400" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
   </p>
    
