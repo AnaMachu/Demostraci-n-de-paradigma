@@ -206,14 +206,17 @@ solo se cuentan.
   </p>
    
    #### Análisis de complejidad
-   * Complejidad temporal
-   * Complejidad espacial O(n)
+ Costo de place-queens O(n^n)- Coloca una reina para cada columna en cada fila
+Costo de safe? - O(n) recorre k reinas colocadas
+   * Complejidad Temporal O(n)
+
+
   
    
    ### Lógico 
    #### Análisis de complejidad
    * Complejidad temporal 
-   * Complejidad espacial O(n)
+   * Complejidad espacial 
 
 
 ## Pruebas
