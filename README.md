@@ -199,18 +199,18 @@ Una vez filtrado se llegan a las soluciones y con
 solo se cuentan.
    #### Diagramas de lógica del código por función
    <p>
-  Lógica de <img width="250" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> 
-  Lógica de safe? <img width="224" height="300" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" /> <br>
-  Lógica de check <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> 
-   Lógica de flatmap <img width="212" height="300" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
+   <img width="250" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> 
+  <img width="224" height="300" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" /> <br>
+  <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> 
+  <img width="212" height="300" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
   </p>
 
    ## Pruebas
    Dado que Codeforces no acepta Racket, procedí crear una solución en c++ para poder evaluarla.
    <img width="1337" height="224" alt="image" src="https://github.com/user-attachments/assets/e075c158-a42e-4838-9fb1-5720f8cf3817" />
-   Estos son los test cases y sus outputs:
+   Estos son los test cases y sus outputs: <br>
    <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/51f7f05e-9f40-4529-8019-bec3c7242af8" />
-  Dado que CodeForces solo me brindó esos 2 test cases, yo generé los demás casos de prueba (solo 9 porque el problema restringe N<9) donde hay input y output esperados y los comparé con la herramienta de codeforces "Custom  innvocation", se puede ver que coinciden por lo que la implementación es correcta.
+  Dado que CodeForces solo me brindó esos 2 test cases, yo generé los demás casos de prueba (solo 9 porque el problema restringe N<9) donde hay input y output esperados y los comparé con la herramienta de codeforces "Custom  innvocation", se puede ver que coinciden por lo que la implementación es correcta. <br>
   <img width="182" height="294" alt="image" src="https://github.com/user-attachments/assets/49afcc01-eee7-4bac-8e45-89fa5c7a9ea0" />
 <img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/38c4cf77-b368-48c8-b064-16da50423a4b" />
 <img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/cd145d21-2a22-483e-995e-86a98bcda3c6" />
@@ -222,20 +222,19 @@ solo se cuentan.
 <img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/3a4ecbdd-2ce5-4d37-882d-b32644912385" />
 
  
-   Y para porbarlo en Racket hice un archivo llamado [Nqueens_tests.rkt](Nqueens_tests.rkt)
-   donde uso los mismos inputs para compararlo con los outpus de c++ y son exactamente iguales, por lo que la propuesta de solución funciona.
-   [imagen]
-   
+   Y para porbarlo en Racket solo agregé esta sección al final del código donde uso los mismos inputs para compararlo con los outpus de c++ y son exactamente iguales, por lo que la propuesta de solución funciona.
+   Inputs y outputs esperados                  |         Inputs y outputs obtenido de  [NqueensFunctional.rkt](NqueensFunctional.rkt) <br>
+   <img width="204" height="317" alt="image" src="https://github.com/user-attachments/assets/8b947d63-681b-4aee-8037-1c1714c7e2d7" />
+   <img width="219" height="301" alt="image" src="https://github.com/user-attachments/assets/a1c982f6-a584-41a3-b89a-57e473468e87" />
+
    #### Análisis de complejidad
-  Costo de place-queens O(n^n)- Coloca una reina para cada columna en cada fila
-  Costo de safe? - O(n) recorre k reinas colocadas
-   * Complejidad Temporal O(n)
-
-
-  
-   
+   * Complejidad Temporal O(n^n+1)
+  Costo de place-queens O(n^n)- Para cada solución parcial intente colocar una reina para cada columna en cualquier fila<br>
+  Costo de safe? - O(n) recorre k reinas colocadas<br>
+   * Complejidad Espacial O(n^n+1)
+ Como se tienen n^n configuraciones y cada una tiene n elementos entonces O(n) * O(n^n) da la complejidad espacial
    ### Lógico 
-   Para este probelma también propongo una solucón en Prolog ya que prolog es muy enfocado en backtracking
+   Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking
    
    
    #### Análisis de complejidad
