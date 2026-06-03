@@ -206,7 +206,7 @@ solo se cuentan.
   </p>
 
    ## Pruebas
-   Dado que Codeforces no acepta Racket, procedí crear una solución en c++ para poder evaluarla.
+   Dado que Codeforces no acepta Racket, procedí crear una solución en c++  [Nqueensccpp.cpp](Nqueensccpp.cpp) para poder evaluarla.
    <img width="1337" height="224" alt="image" src="https://github.com/user-attachments/assets/e075c158-a42e-4838-9fb1-5720f8cf3817" />
    Estos son los test cases y sus outputs: <br>
    <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/51f7f05e-9f40-4529-8019-bec3c7242af8" />
@@ -233,13 +233,12 @@ solo se cuentan.
   Costo de safe? - O(n) recorre k reinas colocadas<br>
    * Complejidad Espacial O(n^n+1)
  Como se tienen n^n configuraciones y cada una tiene n elementos entonces O(n) * O(n^n) da la complejidad espacial
+   
    ### Lógico 
-   Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking
+   Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking y se encuentra en el archivo 
    
    
-   #### Análisis de complejidad
-   * Complejidad temporal 
-   * Complejidad espacial 
+
 
 ## Bibliografía
 Bird, R., & Wadler, P. Introduction to Functional Programming.
