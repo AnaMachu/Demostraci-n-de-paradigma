@@ -197,9 +197,9 @@ Una vez filtrado se llegan a las soluciones y con
   (length (queens n)))
 ```
 solo se cuentan.
-   ####Diagramas lógicos del código por función
+   #### Diagramas lógicos del código por función
    <p>
-   <img width="200" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> 
+   <img width="250" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> 
    <img width="224" height="400" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" /> <br>
    <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> 
    <img width="212" height="400" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
