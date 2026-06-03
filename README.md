@@ -205,7 +205,20 @@ solo se cuentan.
   <img width="212" height="300" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
   </p>
 
-   ## Pruebas
+  #### Análisis de complejidad
+   * Complejidad Temporal O(n^n+1)
+  Costo de place-queens O(n^n)- Para cada solución parcial intente colocar una reina para cada columna en cualquier fila<br>
+  Costo de safe? - O(n) recorre k reinas colocadas<br>
+   * Complejidad Espacial O(n^n+1)
+ Como se tienen n^n configuraciones y cada una tiene n elementos entonces O(n) * O(n^n) da la complejidad espacial
+   
+## Implementción en Lógico 
+   Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking y se encuentra en el archivo  [NqueensLogic.pl](NqueensLogic.pl)
+
+ ## Comparación de solución para el probelma 
+Prolog es una excelente elección para las NQueens porque el problema puede expresarse como un conjunto de restricciones lógicas y el mecanismo de backtracking del lenguaje encuentra automáticamente todas las soluciones. Sin embargo, la implementación en Racket es más eficiente porque realiza poda temprana del espacio de búsqueda al verificar la seguridad de cada reina durante la construcción de la solución, mientras que Prolog genera primero permutaciones completas y después comprueba si son válidas.
+  
+ ## Pruebas
    Dado que Codeforces no acepta Racket, procedí crear una solución en c++  [Nqueensccpp.cpp](Nqueensccpp.cpp) para poder evaluarla.
    <img width="1337" height="224" alt="image" src="https://github.com/user-attachments/assets/e075c158-a42e-4838-9fb1-5720f8cf3817" />
    Estos son los test cases y sus outputs: <br>
@@ -222,21 +235,14 @@ solo se cuentan.
 <img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/3a4ecbdd-2ce5-4d37-882d-b32644912385" />
 
  
-   Y para porbarlo en Racket solo agregé esta sección al final del código donde uso los mismos inputs para compararlo con los outpus de c++ y son exactamente iguales, por lo que la propuesta de solución funciona.
+Para porbarlo en Racket solo agregé esta sección al final del código donde uso los mismos inputs para compararlo con los outpus de c++ y son exactamente iguales, por lo que la propuesta de solución funciona.
    Inputs y outputs esperados                  |         Inputs y outputs obtenido de  [NqueensFunctional.rkt](NqueensFunctional.rkt) <br>
    <img width="204" height="317" alt="image" src="https://github.com/user-attachments/assets/8b947d63-681b-4aee-8037-1c1714c7e2d7" />
    <img width="219" height="301" alt="image" src="https://github.com/user-attachments/assets/a1c982f6-a584-41a3-b89a-57e473468e87" />
 
-   #### Análisis de complejidad
-   * Complejidad Temporal O(n^n+1)
-  Costo de place-queens O(n^n)- Para cada solución parcial intente colocar una reina para cada columna en cualquier fila<br>
-  Costo de safe? - O(n) recorre k reinas colocadas<br>
-   * Complejidad Espacial O(n^n+1)
- Como se tienen n^n configuraciones y cada una tiene n elementos entonces O(n) * O(n^n) da la complejidad espacial
-   
-   ### Lógico 
-   Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking y se encuentra en el archivo 
-   
+Y para porbarlo en Racket solo agregé esta sección al final del código donde uso los mismos inputs para compararlo con los outpus de c++ y son exactamente iguales, por lo que la propuesta de solución funciona.
+   Inputs y outputs esperados                  |         Inputs y outputs obtenido de  [NqueensLogic.pl](NqueensLogic.pl) <br>
+  <img width="204" height="317" alt="image" src="https://github.com/user-attachments/assets/8b947d63-681b-4aee-8037-1c1714c7e2d7" />
    
 
 
