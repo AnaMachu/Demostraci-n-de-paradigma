@@ -31,3 +31,5 @@
 
 (define (count-solutions n)
   (length (queens n)))
+(for ([n (range 1 10)]) ;test cases
+  (printf "~a -> ~a\n" n (count-solutions n)))
