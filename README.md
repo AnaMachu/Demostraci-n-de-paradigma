@@ -20,15 +20,8 @@ La base teórica del paradigma funcional es el **cálculo lambda**, desarrollado
 
 El cálculo lambda representa funciones mediante expresiones como:
 
-\lambda x . M
+<img width="640" height="320" alt="image" src="https://github.com/user-attachments/assets/57df1f97-17ed-4125-91c2-2fff00ac8964" />
 
-donde (x) es el parámetro y (M) el cuerpo de la función. Una función matemática como:
-
-f(x,y)=x+y
-
-puede escribirse en cálculo lambda como:
-
-\lambda x.\lambda y.(x+y)
 
 Estas ideas dieron origen a conceptos como funciones de orden superior, currificación e inmutabilidad.
 El paradigma funcional influyó en lenguajes como Lisp, Haskell y Scheme, caracterizados por el uso de funciones puras, recursividad y ausencia de efectos secundarios.
@@ -225,13 +218,11 @@ solo se cuentan.
 ## Implementación en Lógico 
    Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking y se encuentra en el archivo  [NqueensLogic.pl](NqueensLogic.pl)
 
-   ### Implementación en Lógico
+### Implementación en Lógico
 
 La implementación en el paradigma lógico se encuentra en el archivo [NqueensLogic.pl](NqueensLogic.pl)
 
-La función principal es `queens(N, Qs)` donde N es el tamaño del tablero y Qs es la lista solución.
-
-A diferencia del paradigma funcional, no se construyen las soluciones paso a paso sino que se **describen las condiciones** que debe cumplir una solución válida y el motor de Prolog se encarga de encontrarlas.
+La función principal es `queens(N, Qs)` donde N es el tamaño del tablero y Qs es la lista solución. Se describen las condiciones que debe cumplir una solución válida y el motor de Prolog se encarga de encontrarlas.
 
 ```prolog
 queens(N, Qs) :-
@@ -240,9 +231,9 @@ queens(N, Qs) :-
     safe(Qs).
 ```
 
-`numlist` genera la lista `[1,2,...,N]`. `permutation` genera una permutación de esa lista y la guarda en `Qs`. Si `safe(Qs)` falla, Prolog hace **backtracking automático** y prueba la siguiente permutación sin que el programador lo indique explícitamente. Usar `permutation` garantiza que no habrá dos reinas en la misma fila por construcción, por lo que `no_attack` solo necesita verificar diagonales, a diferencia de Racket que necesita verificarlo explícitamente.
+`numlist` genera la lista `[1,2,...,N]`. `permutation` genera una permutación de esa lista y la guarda en `Qs`. Si `safe(Qs)` falla, Prolog hace **backtracking automático** y prueba la siguiente permutación sin que el programador lo indique. Usar `permutation` garantiza que no habrá dos reinas en la misma fila por construcción, por lo que solo es necesario verificar diagonales.
 
-Una vez generada una permutación candidata, se valida con:
+Una vez generada una permutación candidata se valida con:
 
 ```prolog
 safe([]).
@@ -251,14 +242,9 @@ safe([Q|Qs]) :-
     safe(Qs).
 ```
 
-El caso base es la lista vacía, que es trivialmente segura. El caso recursivo toma la primera reina `Q` y verifica que no ataque a ninguna de las demás `Qs`, luego verifica recursivamente que el resto también sea seguro entre sí. Es estructuralmente idéntico a `safe?` y `check` en Racket:
+El caso base es la lista vacía, trivialmente segura. El caso recursivo toma la primera reina `Q` y verifica que no ataque a ninguna de las demás `Qs`, luego verifica recursivamente que el resto también sea seguro entre sí.
 
-```
-Prolog          Racket
-[Q|Qs]    ≡     (car qs) y (cdr qs)
-```
-
-La verificación de diagonales la hace `no_attack`:
+La verificación de diagonales la hace no_attack:
 
 ```prolog
 no_attack(_, [], _).
@@ -269,16 +255,16 @@ no_attack(Q, [Q1|Qs], D) :-
     no_attack(Q, Qs, D1).
 ```
 
-El caso base es lista vacía, no hay con quién chocar. El caso recursivo verifica que `Q` no esté en diagonal con `Q1` en ninguna dirección. Racket usa `abs` para cubrir ambas direcciones en una sola línea, Prolog las escribe explícitamente con `+D` y `-D`. `D` aumenta en cada llamada igual que en `check`.
-
-Finalmente para contar soluciones:
+El caso base es lista vacía. El caso recursivo verifica que Q no esté en diagonal con Q1  en ninguna dirección, aumentando D en cada llamada. Finalmente:
 
 ```prolog
 count_solutions(N, Count) :-
     aggregate_all(count, queens(N, _), Count).
 ```
 
-`aggregate_all` cuenta cuántas veces `queens` tuvo éxito, equivalente a `length` en Racket pero aprovechando el backtracking del motor para encontrar todas las soluciones automáticamente.
+`aggregate_all` cuenta cuántas veces `queens` tuvo éxito aprovechando el backtracking del motor para encontrar todas las soluciones automáticamente.
+
+
 
  ## Comparación de solución para el probelma 
 Prolog es una excelente elección para las NQueens porque el problema puede expresarse como un conjunto de restricciones lógicas y el mecanismo de backtracking del lenguaje encuentra automáticamente todas las soluciones. Sin embargo, la implementación en Racket es más eficiente porque realiza poda temprana del espacio de búsqueda al verificar la seguridad de cada reina durante la construcción de la solución, mientras que Prolog genera primero permutaciones completas y después comprueba si son válidas.
