@@ -153,7 +153,7 @@ Y también puede que haya más de una solución válida por iteración.
    Donde n=tamaño del tablero y k = reinas por colocar. Primero va al caso base de su recusión el cual es que ya no queden reinas por colocar y devuelve una lista vacía.
    Como k tiene que ser igual a n  y es diferente a cero, se desccarta el caso base y se va al caso recursivo donde se manda a llamar a sí misma con una k menos ya que ocupa tener una lista sobre la  cual iterar así que queda pausado llamandose hasta que k=0 y se devuelva una lista con una lista vacía dentro para entonces poder ejecutar sobre esa.
 
-   `(place-queens n (- k 1)`
+   `(place-queens n (- k 1))`
 
 Entonces luce así :
    
