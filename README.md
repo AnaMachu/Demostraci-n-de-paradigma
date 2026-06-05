@@ -199,9 +199,19 @@ Una vez filtrado se llegan a las soluciones y con
 solo se cuentan.
    #### Diagramas de lógica del código por función
    <p>
+    La función principal primero consulta su caso base de recursión para posteriormente generar candidatos con flatmap los cuales serán filtrados por filter según su resultado en safe, todo esto pasa uan vez que se llega a caso base al restar k. <br>
    <img width="250" height="300" alt="diagrama_queens" src="https://github.com/user-attachments/assets/71adf9ff-cd11-42c7-8355-90e8ed27e7d2" /> 
+    safe? inicializa los parámetros de check y dependiendo de lo que devuelva check define si es seguro o no<br>
   <img width="224" height="300" alt="diagrama_safe" src="https://github.com/user-attachments/assets/f5a8360f-3b96-4a5a-8d95-846506e04c7b" /> <br>
+    Check inicia evaluando su caso base el cual es que ya no haya más elementos en la lista, y compara el primer elemento con el primero del resto y avalúa las condiciones de no estar en misma diagonal o fila, si es verdadero se vuelve a llamar la función con uno más de distancia, así hasta llegar al caso base.
   <img width="400" height="300" alt="diagrama_check" src="https://github.com/user-attachments/assets/9fa65009-79af-479a-9074-9bc2f4c86619" /> 
+  map toma CADA solución parcial y le agrega todas las filas:
+  qs = '(1)  →  '(1 1) '(2 1) '(3 1) '(4 1)
+  qs = '(2)  →  '(1 2) '(2 2) '(3 2) '(4 2)
+  qs = '(3)  →  '(1 3) '(2 3) '(3 3) '(4 3)
+  qs = '(4)  →  '(1 4) '(2 4) '(3 4) '(4 4)
+
+   flatmap se encarga de aplanar esas listas anidadads
   <img width="212" height="300" alt="diagrama_flatmap" src="https://github.com/user-attachments/assets/4948c08c-5bf3-43fd-8caa-b731ce979511" /> <br>
   </p>
 
@@ -212,12 +222,67 @@ solo se cuentan.
    * Complejidad Espacial O(n^n+1)
  Como se tienen n^n configuraciones y cada una tiene n elementos entonces O(n) * O(n^n) da la complejidad espacial
    
-## Implementción en Lógico 
+## Implementación en Lógico 
    Para este probelma también propongo una solución en Prolog ya que prolog es muy enfocado en backtracking y se encuentra en el archivo  [NqueensLogic.pl](NqueensLogic.pl)
+
+   ### Implementación en Lógico
+
+La implementación en el paradigma lógico se encuentra en el archivo [NqueensLogic.pl](NqueensLogic.pl)
+
+La función principal es `queens(N, Qs)` donde N es el tamaño del tablero y Qs es la lista solución.
+
+A diferencia del paradigma funcional, no se construyen las soluciones paso a paso sino que se **describen las condiciones** que debe cumplir una solución válida y el motor de Prolog se encarga de encontrarlas.
+
+```prolog
+queens(N, Qs) :-
+    numlist(1, N, Ns),
+    permutation(Ns, Qs),
+    safe(Qs).
+```
+
+`numlist` genera la lista `[1,2,...,N]`. `permutation` genera una permutación de esa lista y la guarda en `Qs`. Si `safe(Qs)` falla, Prolog hace **backtracking automático** y prueba la siguiente permutación sin que el programador lo indique explícitamente. Usar `permutation` garantiza que no habrá dos reinas en la misma fila por construcción, por lo que `no_attack` solo necesita verificar diagonales, a diferencia de Racket que necesita verificarlo explícitamente.
+
+Una vez generada una permutación candidata, se valida con:
+
+```prolog
+safe([]).
+safe([Q|Qs]) :-
+    no_attack(Q, Qs, 1),
+    safe(Qs).
+```
+
+El caso base es la lista vacía, que es trivialmente segura. El caso recursivo toma la primera reina `Q` y verifica que no ataque a ninguna de las demás `Qs`, luego verifica recursivamente que el resto también sea seguro entre sí. Es estructuralmente idéntico a `safe?` y `check` en Racket:
+
+```
+Prolog          Racket
+[Q|Qs]    ≡     (car qs) y (cdr qs)
+```
+
+La verificación de diagonales la hace `no_attack`:
+
+```prolog
+no_attack(_, [], _).
+no_attack(Q, [Q1|Qs], D) :-
+    Q =\= Q1 + D,
+    Q =\= Q1 - D,
+    D1 is D + 1,
+    no_attack(Q, Qs, D1).
+```
+
+El caso base es lista vacía, no hay con quién chocar. El caso recursivo verifica que `Q` no esté en diagonal con `Q1` en ninguna dirección. Racket usa `abs` para cubrir ambas direcciones en una sola línea, Prolog las escribe explícitamente con `+D` y `-D`. `D` aumenta en cada llamada igual que en `check`.
+
+Finalmente para contar soluciones:
+
+```prolog
+count_solutions(N, Count) :-
+    aggregate_all(count, queens(N, _), Count).
+```
+
+`aggregate_all` cuenta cuántas veces `queens` tuvo éxito, equivalente a `length` en Racket pero aprovechando el backtracking del motor para encontrar todas las soluciones automáticamente.
 
  ## Comparación de solución para el probelma 
 Prolog es una excelente elección para las NQueens porque el problema puede expresarse como un conjunto de restricciones lógicas y el mecanismo de backtracking del lenguaje encuentra automáticamente todas las soluciones. Sin embargo, la implementación en Racket es más eficiente porque realiza poda temprana del espacio de búsqueda al verificar la seguridad de cada reina durante la construcción de la solución, mientras que Prolog genera primero permutaciones completas y después comprueba si son válidas.
-  
+En mi opinión la implementación es mucho más sencilla en prolog por que solo declaras lo que es válido, no se debe hacer todo lo que se hizo en racket.
  ## Pruebas
    Dado que Codeforces no acepta Racket, procedí crear una solución en c++  [Nqueensccpp.cpp](Nqueensccpp.cpp) para poder evaluarla.
    <img width="1337" height="224" alt="image" src="https://github.com/user-attachments/assets/e075c158-a42e-4838-9fb1-5720f8cf3817" />
@@ -239,12 +304,6 @@ Para porbarlo en Racket solo agregé esta sección al final del código donde us
    Inputs y outputs esperados                  |         Inputs y outputs obtenido de  [NqueensFunctional.rkt](NqueensFunctional.rkt) <br>
    <img width="204" height="317" alt="image" src="https://github.com/user-attachments/assets/8b947d63-681b-4aee-8037-1c1714c7e2d7" />
    <img width="219" height="301" alt="image" src="https://github.com/user-attachments/assets/a1c982f6-a584-41a3-b89a-57e473468e87" />
-
-Y para porbarlo en Racket solo agregé esta sección al final del código donde uso los mismos inputs para compararlo con los outpus de c++ y son exactamente iguales, por lo que la propuesta de solución funciona.
-   Inputs y outputs esperados                  |         Inputs y outputs obtenido de  [NqueensLogic.pl](NqueensLogic.pl) <br>
-  <img width="204" height="317" alt="image" src="https://github.com/user-attachments/assets/8b947d63-681b-4aee-8037-1c1714c7e2d7" />
-   
-
 
 ## Bibliografía
 Bird, R., & Wadler, P. Introduction to Functional Programming.
